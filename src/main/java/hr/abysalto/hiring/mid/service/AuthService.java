@@ -12,6 +12,7 @@ import hr.abysalto.hiring.mid.exception.InvalidTotpException;
 import hr.abysalto.hiring.mid.exception.ResourceNotFoundException;
 import hr.abysalto.hiring.mid.security.JwtUtil;
 import hr.abysalto.hiring.mid.security.TotpUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,22 +22,13 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final TotpUtil totpUtil;
-
-    public AuthService(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder,
-                       JwtUtil jwtUtil,
-                       TotpUtil totpUtil) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtUtil = jwtUtil;
-        this.totpUtil = totpUtil;
-    }
 
     @Transactional
     public AuthResponse register(RegisterRequest request) {

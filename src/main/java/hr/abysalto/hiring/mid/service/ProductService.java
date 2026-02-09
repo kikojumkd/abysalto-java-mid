@@ -9,6 +9,7 @@ import hr.abysalto.hiring.mid.dto.response.PaginatedProductResponse;
 import hr.abysalto.hiring.mid.dto.response.ProductResponse;
 import hr.abysalto.hiring.mid.exception.DuplicateResourceException;
 import hr.abysalto.hiring.mid.exception.ResourceNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,19 +19,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
     private final DummyJsonClient dummyJsonClient;
     private final FavoriteProductRepository favoriteProductRepository;
     private final UserRepository userRepository;
-
-    public ProductService(DummyJsonClient dummyJsonClient,
-                          FavoriteProductRepository favoriteProductRepository,
-                          UserRepository userRepository) {
-        this.dummyJsonClient = dummyJsonClient;
-        this.favoriteProductRepository = favoriteProductRepository;
-        this.userRepository = userRepository;
-    }
 
     public PaginatedProductResponse getProducts(int limit, int skip, String sortBy, String order, String username) {
         PaginatedProductResponse response = dummyJsonClient.getProducts(limit, skip, sortBy, order);

@@ -10,6 +10,7 @@ import hr.abysalto.hiring.mid.dto.response.CartItemResponse;
 import hr.abysalto.hiring.mid.dto.response.CartResponse;
 import hr.abysalto.hiring.mid.dto.response.ProductResponse;
 import hr.abysalto.hiring.mid.exception.ResourceNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,19 +19,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CartService {
 
     private final CartItemRepository cartItemRepository;
     private final UserRepository userRepository;
     private final DummyJsonClient dummyJsonClient;
-
-    public CartService(CartItemRepository cartItemRepository,
-                       UserRepository userRepository,
-                       DummyJsonClient dummyJsonClient) {
-        this.cartItemRepository = cartItemRepository;
-        this.userRepository = userRepository;
-        this.dummyJsonClient = dummyJsonClient;
-    }
 
     public CartResponse getCart(String username) {
         User user = getUser(username);
