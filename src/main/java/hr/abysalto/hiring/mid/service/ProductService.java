@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -96,9 +96,7 @@ public class ProductService {
         User user = userRepository.findByUsername(username).orElse(null);
         if (user == null) return;
 
-        Set<Long> favoriteIds = favoriteProductRepository.findProductIdsByUserId(user.getUserId())
-                .stream()
-                .collect(Collectors.toSet());
+        Set<Long> favoriteIds = new HashSet<>(favoriteProductRepository.findProductIdsByUserId(user.getUserId()));
 
         products.forEach(product -> product.setFavorited(favoriteIds.contains(product.getId())));
     }
