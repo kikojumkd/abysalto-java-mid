@@ -10,6 +10,7 @@ import hr.abysalto.hiring.mid.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,13 +20,10 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Authentication", description = "User registration, login, and 2FA management")
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
     private final AuthService authService;
-
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
 
     @Operation(summary = "Register a new user")
     @PostMapping("/register")
